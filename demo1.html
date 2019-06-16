@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			video {
+				height: 500px;
+				width: 300px;
+			}
+
+			#myModal {
+				display: none;
+			}
+
+			.dialog_bg {
+				position: fixed;
+				height: 100%;
+				width: 100%;
+				background: black;
+				opacity: 0.5;
+			}
+
+			.dialog_box {
+				position: fixed;
+				height: 100%;
+				width: 100%;
+				z-index: 999;
+			}
+
+			.dialog {
+				margin: auto;
+				margin-top: 100px;
+				height: 300px;
+				width: 300px;
+				max-width: 400px;
+				background: whitesmoke;
+				z-index: 1000;
+			}
+
+			.menu {
+				width: 100px;
+				margin: 0 auto;
+			}
+
+			.errorMassage {
+				color: red;
+			}
+
+			span {
+				display: block;
+			}
+
+			#content {
+				width: 100%;
+				height: 100%;
+				padding: 8px;
+			}
+
+			#box {
+				height: 510px;
+				width: 310px;
+				margin: 0 auto;
+				margin-top: 100px;
+				background: #000000;
+			}
+
+			body {
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="myModal">
+			<div class="dialog_bg">
+			</div>
+			<div class="dialog_box">
+				<div class="dialog">
+					<span> 那么问题来了，片中出现的人物是谁</span>
+					<div class="menu">
+
+
+					</div>
+					<span class='errorMassage'> </span>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<div id="box">
+				<video src="movie/Iron_man.mp4" controls="controls">
+				</video>
+			</div>
+		</div>
+		，<script type="text/javascript">
+			var menuHtml = '';
+			var Avengers = new Map();
+			Avengers.set('Captain', '美队');
+			Avengers.set('Iron_man', '钢铁侠');
+			Avengers.set('Thor', '雷神');
+			Avengers.forEach(function(item, key, mapObj) {
+				menuHtml +=
+					'<span><input type="radio" name="man" value="' + key + '" id="' + key +
+					'" onclick="choose(value)"/><label  for="' + key + '">' + item + '</label></span>';
+			});
+			var flag = true;
+			var player = document.getElementsByTagName('video')[0];
+			var myModal = document.getElementById('myModal');
+			player.addEventListener('playing', function() {
+				if (flag) {
+					window.setTimeout(function() {
+						myModal.style.display = 'inline';
+						player.pause();
+						document.getElementsByClassName('menu')[0].innerHTML = menuHtml;
+					}, 4000);
+					flag = false;
+				}
+			})
+
+			function choose(value) {
+				if (value === 'Iron_man') {
+					myModal.style.display = 'none';
+					player.play();
+				} else {
+					document.getElementsByClassName('errorMassage')[0].innerHTML = '错误!';
+				}
+			}
+		</script>
+	</body>
+</html>
